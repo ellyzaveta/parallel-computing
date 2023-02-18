@@ -3,14 +3,12 @@ package lab1;
 class MyThread extends Thread {
     int position;           //індекс у вхідному рядку, з якого поточний потік повинен почати виконання
     int length;             //довжина частини рядка, яку має розвернути поточний потік
-    int remainingLength;    //довжина залишку, якщо вхідний рядок не кратний кількості потоків
     char[] finalStr;        //рядок результат
     char[] str;             //вхідний рядок
 
-    public MyThread(int position, int sizeOfString, int remainingLength, char[] finalStr, char[] str) {
+    public MyThread(int position, int length, char[] finalStr, char[] str) {
         this.position = position;
-        this.length = sizeOfString;
-        this.remainingLength = remainingLength;
+        this.length = length;
         this.finalStr = finalStr;
         this.str = str;
     }
@@ -18,7 +16,7 @@ class MyThread extends Thread {
     //реверс частини рядка поточним потоком
     @Override
     public void run() {
-        for(int i = position; i < position + length + remainingLength; i++) {
+        for(int i = position; i < position + length; i++) {
             finalStr[str.length - i - 1] = str[i];
         }
     }
@@ -47,9 +45,9 @@ public class StringReverse {
 
         for (int i = 0; i < numOfThreads; i++) {
             if(remainingLength != 0 && i == numOfThreads - 1)
-                threads[i] = new MyThread(i * lengthPerThread, lengthPerThread, remainingLength, finalStr, str);
+                threads[i] = new MyThread(i * lengthPerThread, lengthPerThread + remainingLength, finalStr, str);
             else
-                threads[i] = new MyThread(i * lengthPerThread, lengthPerThread, 0, finalStr, str);
+                threads[i] = new MyThread(i * lengthPerThread, lengthPerThread, finalStr, str);
             threads[i].start();
         }
 
