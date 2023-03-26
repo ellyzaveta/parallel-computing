@@ -15,7 +15,7 @@ public class ThreadPoolTest {
         ThreadPool pool = new ThreadPool(numOfThreads);
 
         for (int i = 0; i < numOfTasks; i++) {
-            Task task = new Task(i, Data.randMillis());
+            Task task = new Task(Data.randMillis());
             pool.addTask(task);
         }
 
@@ -31,7 +31,7 @@ public class ThreadPoolTest {
         ThreadPool pool = new ThreadPool(numOfThreads);
 
         for (int i = 0; i < numOfTasks; i++) {
-            pool.addTask(new Task(i, Data.randMillis()));
+            pool.addTask(new Task(Data.randMillis()));
         }
 
         Thread.sleep(14000);
@@ -41,7 +41,7 @@ public class ThreadPoolTest {
         pool.resume();
 
         for (int i = 0; i < numOfTasks; i++) {
-            pool.addTask(new Task(i, Data.randMillis()));
+            pool.addTask(new Task(Data.randMillis()));
         }
 
         pool.stopPool(true);

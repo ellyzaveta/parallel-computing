@@ -18,7 +18,7 @@ public class Test {
 
         int totalNumOfTasks = 0;
         while (System.currentTimeMillis() < end) {
-            pool.addTask(new Task(totalNumOfTasks, Data.randMillis()));
+            pool.addTask(new Task(Data.randMillis()));
             totalNumOfTasks++;
             if (totalNumOfTasks % 5 == 0) Thread.sleep(1000);
         }

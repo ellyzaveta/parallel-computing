@@ -39,8 +39,14 @@ public class ThreadPool {
         numOfRejectedTasks++;
     }
 
-    public synchronized void stopPool(boolean finishTasks) throws InterruptedException {
+    public void stopPool(boolean finishTasks) throws InterruptedException {
         isStopped = true;
+
+        for (LinkedList<Task> queue : queues) {
+                synchronized (queue) {
+                    queue.notify();
+                }
+        }
 
         if (finishTasks) {
             for (WorkerThread thread : threads) thread.join();
@@ -130,6 +136,8 @@ public class ThreadPool {
                             return;
                         }
                     }
+
+                    if(queue.isEmpty()) break;
 
                     updateWaitingTime();
 
