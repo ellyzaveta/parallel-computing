@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.concurrent.TimeUnit;
+
 public class Time {
     private long start;
 
@@ -8,6 +10,6 @@ public class Time {
     }
 
     public long stop() {
-        return (System.nanoTime() - start) / 1000000;
+        return TimeUnit.NANOSECONDS.toSeconds(System.nanoTime() - start);
     }
 }
