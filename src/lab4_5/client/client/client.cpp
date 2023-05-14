@@ -62,5 +62,9 @@ void Client::run()
     if(equal) std::cout << "reversed input array and result array -- EQUAL." << std::endl;
     else std::cout << "reversed input array and result array -- NOT equal." << std::endl;
 
+    delete inputArr;
+    delete result;
+    delete revInputArr;
+
     close(sock);
 }
