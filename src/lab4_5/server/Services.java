@@ -109,7 +109,7 @@ public class Services {
         }
     }
 
-    public void sendCurrentStatus(TaskProcessing tp, DataOutputStream dos) { //can be used to get the current status instead of sendStatus()
+    public static void sendCurrentStatus(TaskProcessing tp, DataOutputStream dos) { //can be used to get the current status instead of sendStatus()
                                                                                 //in combination with receiveCurrentStatus() in Client
         if(tp.getStatus()) sendText("result is ready. use command 'RESULT' to receive.", dos);
         else sendText("task is still processing...", dos);
