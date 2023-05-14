@@ -75,65 +75,70 @@ class ClientHandler extends Thread {
 
         Services.sendText("-> SERVER: " + mes, dos);
 
-        Services.sleep(1);
+        TaskProcessing tp = new TaskProcessing();
 
-        char[] inputArr = Services.receiveCharArr(dis);
-        int numOfThreads = Services.receiveInt(dis);
+        char[] inputArr = null;
+        int numOfThreads = 0;
 
-        System.out.println("-> CLIENT (port=" + s.getPort() + "): sending data...");
+        outerLoop:
+        while (true) {
 
-        Services.sleep(1);
+            String command = Services.receiveText(dis);
 
-        if (inputArr.length == 0 || numOfThreads == 0) {
-            mes = "incorrect data";
-            System.out.println("<--- " + mes);
-
-            Services.sendText("-> SERVER: " + mes, dos);
-
-            try {
-                s.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            return;
-        }
-
-        mes = "char arr of length " + inputArr.length + " received. num of threads: " + numOfThreads;
-        System.out.println("<--- " + mes);
-
-        Services.sendText("-> SERVER: " + mes, dos);
-
-        String command = Services.receiveText(dis);
-
-        System.out.println("-> CLIENT (port=" + s.getPort() + "): " + command);
-
-        Services.sleep(1);
-        mes = "command " + command + " received";
-
-        Services.sendText("-> SERVER: " + mes, dos);
-
-        if (command.equals("START")) {
-            System.out.println("<--- sending status to client (port=" + s.getPort() + ")");
-
-            TaskProcessing tp = new TaskProcessing(inputArr, numOfThreads);
-
-            Services.sendStatus(inputArr, dos, tp);
-            Services.sleep(1);
-
-            command = Services.receiveText(dis);
-
-            mes = "command " + command + " received";
             System.out.println("-> CLIENT (port=" + s.getPort() + "): " + command);
 
+            Services.sleep(1);
+            mes = "command " + command + " received";
             Services.sendText("-> SERVER: " + mes, dos);
 
-            Services.sleep(1);
+            if (command.equals("EXIT")) {
+                Services.sendText("Command EXIT received. Connection closed", dos);
+                System.out.println("Client (port=" + s.getPort() + ") - connection closed.");
+                break;
+            }
 
-            if(command.equals("RESULT")) {
-                System.out.println("<--- sending result to client (port=" + s.getPort() + ")");
+            switch (command) {
 
-                char[] arr = tp.getResult();
-                Services.sendCharArr(arr, dos);
+                case "SEND" -> {
+
+                    inputArr = Services.receiveCharArr(dis);
+                    numOfThreads = Services.receiveInt(dis);
+
+                    System.out.println("-> CLIENT (port=" + s.getPort() + "): sending data...");
+                    Services.sleep(1);
+
+                    if (inputArr.length == 0 || numOfThreads == 0) {
+                        mes = "incorrect data";
+                        System.out.println("<--- " + mes);
+
+                        Services.sendText("-> SERVER: " + mes, dos);
+                        break outerLoop;
+                    }
+
+                    mes = "char arr of length " + inputArr.length + " received. num of threads: " + numOfThreads;
+                    System.out.println("<--- " + mes);
+                    Services.sendText("-> SERVER: " + mes, dos);
+
+                }
+
+                case "START" -> {
+                    if(inputArr == null) break outerLoop;
+                    else {
+                        System.out.println("<--- sending status to client (port=" + s.getPort() + ")");
+                        tp.addTask(inputArr, numOfThreads);
+                        Services.sendStatus(inputArr, dos, tp);
+                        Services.sleep(1);
+                    }
+                }
+
+                case "RESULT" -> {
+                    if(inputArr == null) break outerLoop;
+                    else {
+                        System.out.println("<--- sending result to client (port=" + s.getPort() + ")");
+                        char[] arr = tp.getResult();
+                        Services.sendCharArr(arr, dos);
+                    }
+                }
             }
         }
 
@@ -147,12 +152,15 @@ class ClientHandler extends Thread {
 
 class TaskProcessing {
 
-    private final CompletableFuture<char[]> taskProcessingThread;
+    private CompletableFuture<char[]> taskProcessingThread;
     private final AtomicInteger progress;
 
-    public TaskProcessing(char[] arr, int numOfThreads) {
+    public TaskProcessing() {
         progress = new AtomicInteger(0);
+        taskProcessingThread = new CompletableFuture<>();
+    }
 
+    public void addTask(char[] arr, int numOfThreads) {
         taskProcessingThread = CompletableFuture.supplyAsync(() -> {
             char[] res;
             try {
