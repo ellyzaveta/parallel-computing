@@ -1,16 +1,20 @@
 package lab1;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 class MyThread extends Thread {
     int position;           //індекс у вхідному рядку, з якого поточний потік повинен почати виконання
     int length;             //довжина частини рядка, яку має розвернути поточний потік
     char[] finalStr;        //рядок результат
     char[] str;             //вхідний рядок
+    AtomicInteger progress;
 
-    public MyThread(int position, int length, char[] finalStr, char[] str) {
+    public MyThread(int position, int length, char[] finalStr, char[] str, AtomicInteger progress) {
         this.position = position;
         this.length = length;
         this.finalStr = finalStr;
         this.str = str;
+        this.progress = progress;
     }
 
     //реверс частини рядка поточним потоком
@@ -18,8 +22,10 @@ class MyThread extends Thread {
     public void run() {
         for(int i = position; i < position + length; i++) {
             finalStr[str.length - i - 1] = str[i];
+            progress.incrementAndGet();
         }
     }
+
 }
 
 public class StringReverse {
@@ -34,7 +40,7 @@ public class StringReverse {
         return finalStr;
     }
 
-    public static char[] parallelSolution(char[] str, int numOfThreads) throws InterruptedException {
+    public static char[] parallelSolution(char[] str, int numOfThreads, AtomicInteger progress) throws InterruptedException {
         int length = str.length;
         char[] finalStr = new char[length];
 
@@ -45,9 +51,9 @@ public class StringReverse {
 
         for (int i = 0; i < numOfThreads; i++) {
             if(remainingLength != 0 && i == numOfThreads - 1)
-                threads[i] = new MyThread(i * lengthPerThread, lengthPerThread + remainingLength, finalStr, str);
+                threads[i] = new MyThread(i * lengthPerThread, lengthPerThread + remainingLength, finalStr, str, progress);
             else
-                threads[i] = new MyThread(i * lengthPerThread, lengthPerThread, finalStr, str);
+                threads[i] = new MyThread(i * lengthPerThread, lengthPerThread, finalStr, str, progress);
             threads[i].start();
         }
 

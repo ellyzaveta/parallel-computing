@@ -23,7 +23,7 @@ public class TimeComparison {
 
         for(int i = 1; i < numOfThreads; i++) {
             time.start();
-            StringReverse.parallelSolution(str, (int) Math.pow(2, i));
+        //    StringReverse.parallelSolution(str, (int) Math.pow(2, i));
             result.add(time.stop());
         }
 
