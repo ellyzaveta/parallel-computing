@@ -29,7 +29,7 @@ Solve the problem without using parallelization and using parallelization and pl
 
 <br />
 
-<img src="https://drive.google.com/uc?export=view&id=10cvWM3yvUB3ueVF14cXaEZY6NEIWwgRe" width="600">
+<img src="https://drive.google.com/uc?export=view&id=10cvWM3yvUB3ueVF14cXaEZY6NEIWwgRe" width="630">
 
 <br />
 
