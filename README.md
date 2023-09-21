@@ -29,7 +29,16 @@ Solve the problem without using parallelization and using parallelization and pl
 
 <br />
 
-![plot](https://drive.google.com/uc?export=view&id=10cvWM3yvUB3ueVF14cXaEZY6NEIWwgRe)
-
 <img src="https://drive.google.com/uc?export=view&id=10cvWM3yvUB3ueVF14cXaEZY6NEIWwgRe" width="600">
 
+<br />
+
+#### Сonclusion
+
+<br />
+
+Based on the obtained results, it can be said that it is advisable to use parallelization on large volumes of data. On small text files, parallelization is inefficient, in some cases showing even worse results than the sequential algorithm, since the generation of threads slows down the solution somewhat. On data of medium length, using parallelization can speed up the solution by a factor of about 2, but the execution time increases with the number of threads.
+
+<br />
+
+Regarding the number of threads, their most optimal number is equal to the number of logical cores. When using the number of threads 2, 4, 8 times greater than the number of logical cores, we get approximately the same results as with an unchanged number. Let us explain this by the fact that although the number of threads is practically unlimited, the number of simultaneously active execution threads is limited by the number of physical cores, since one core really processes only 1 thread at a time (if the physical core is 2 logical cores - 2 threads at the same time).
