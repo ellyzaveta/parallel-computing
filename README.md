@@ -29,5 +29,5 @@ Solve the problem without using parallelization and using parallelization and pl
 
 <br />
 
-![plot](https://drive.google.com/uc?export=view&id=10cvWM3yvUB3ueVF14cXaEZY6NEIWwgRe)
+![plot](https://drive.google.com/uc?export=view&id=10cvWM3yvUB3ueVF14cXaEZY6NEIWwgRe){width=100px}
 
