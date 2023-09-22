@@ -43,6 +43,7 @@ Based on the obtained results, it can be said that it is advisable to use parall
 
 Regarding the number of threads, their most optimal number is equal to the number of logical cores. When using the number of threads 2, 4, 8 times greater than the number of logical cores, we get approximately the same results as with an unchanged number. Let us explain this by the fact that although the number of threads is practically unlimited, the number of simultaneously active execution threads is limited by the number of physical cores, since one core really processes only 1 thread at a time (if the physical core is 2 logical cores - 2 threads at the same time).
 
+<br />
 
 ## 🔷 Lab 2 [Study of basic synchronization primitives]
 
@@ -51,10 +52,10 @@ Consider the basic synchronization primitives and their features. Consider appro
 
 #### Task
 
-- Individual task
+- Individual task: 
 The thread pool is served by 8 worker threads. There is no queue of tasks as such. Tasks are immediately added to the free workflow. If all work streams are busy, the task is rejected. The task takes a random time between 10 and 14 seconds. (Technically, there is no thread queue, but in this implementation it is possible to implement 8 separate queues for one task, which, in fact, is the absence of a queue, because a queue is one active task).
 
-- General task
+- General task:
 Implement your own thread pool with the characteristics specified in the individual task. The thread pool must have the ability to complete its work correctly (immediately, with the abandonment of all active tasks, and with the completion of active tasks), the ability to temporarily stop its work. The operations of initializing and destroying the pool, adding and removing tasks from the queue must be thread-safe.
 Check and prove the correct operation of the program using the console input/output system. Perform time-limited testing and calculate the number of threads created and the average time a thread is in the waiting state. Determine the maximum and minimum time until the queue was filled, the number of rejected tasks (for limited queues).
 
