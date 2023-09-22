@@ -88,3 +88,37 @@ Based on the obtained test results, it can be said that only ~ 16% of the input 
 
 However, on the other hand, implementing a thread pool with task deflection can be useful for specific use cases where the workload is well defined and the system has limited resources or strict performance requirements. So, for example, a thread pool on a web server can be designed to handle incoming requests from clients. If all worker threads are busy processing requests, new requests will be rejected until a worker thread becomes available. This can prevent server overload and crash.
 
+<br />
+
+## 🔷 Lab 3 [Study of atomic variables and atomic operations]
+
+#### Goal
+Consider the concept of atomicity, learn how to work with atomic variables, and familiarize yourself with the approach of writing parallel code without blocking.
+
+#### Individual task:
+Find the difference of all odd elements of an array, the smallest odd number.
+
+#### General task:
+- Implement an individual task without using threads. Measure the time of the task.
+- Implement an individual task using blocking synchronization primitives. Measure the task execution time, as well as the amount of time spent waiting for primitives to be unlocked.
+- Implement an individual task using atomic variables and CAS operations. Measure the time of the task.
+Repeat steps 2, 3 and 4 using different data dimensions. Present the results in the form of graphs.
+
+#### Result
+
+<br />
+
+<img src="https://drive.google.com/uc?export=view&id=1b-W-PvWi1_IGbtoTicRWdcTZMkggrRFJ" width="630">
+
+<br />
+
+#### Conclusions
+
+Based on the obtained results, we can say that on small and medium-sized data, operations with atomic variables are performed faster than operations with blocking, since they do not require blocking and unlocking of the monitor. However, on very large data when performing this specific task, atomic variables show worse results over time.
+
+Atomic variables are typically used for small operations, such as incrementing or decrementing a numeric value, without having to block access to the resource for other threads. They ensure the speed and efficiency of such operations, as they do not require blocking resources for other threads.
+
+Blocking primitives, such as mutexes or semaphores, are used for large operations that can take a lot of time and resources. They protect access to the resource for all other threads until the operation is complete. The use of blocking primitives provides security and prevents conflicts during the execution of critical sections of the code.
+
+
+
