@@ -2,7 +2,14 @@
 
 <br />
 
-## 🔷 Lab 1 [Study of basic operations with threads of execution]
+## Сontent
+* [🔷 Study of basic operations with threads](#study-of-basic-operations-with-threads)
+* [🔷 Study of basic synchronization primitives](#study-of-basic-synchronization-primitives)
+* [🔷 Study of atomic variables and atomic operations](#study-of-atomic-variables-and-atomic-operations)
+* [🔷 Implementation of client-server application for basic mathematical operations on an array](#implementation-of-client-server-application-for-basic-mathematical-operations-on-an-array)
+<br />
+
+## 🔷 Study of basic operations with threads
 
 #### Goal
 Consider basic operations with threads of execution, learn to use non-blocking parallelization to solve the simplest mathematical problems.
@@ -45,7 +52,7 @@ Regarding the number of threads, their most optimal number is equal to the numbe
 
 <br />
 
-## 🔷 Lab 2 [Study of basic synchronization primitives]
+## 🔷 Study of basic synchronization primitives
 
 #### Goal
 Consider the basic synchronization primitives and their features. Consider approaches to building software using parallelism and familiarize yourself with the classic problem of parallelism in the form of a thread pool.
@@ -90,7 +97,7 @@ However, on the other hand, implementing a thread pool with task deflection can 
 
 <br />
 
-## 🔷 Lab 3 [Study of atomic variables and atomic operations]
+## 🔷 Study of atomic variables and atomic operations
 
 #### Goal
 Consider the concept of atomicity, learn how to work with atomic variables, and familiarize yourself with the approach of writing parallel code without blocking.
@@ -122,7 +129,7 @@ Blocking primitives, such as mutexes or semaphores, are used for large operation
 
 <br />
 
-## 🔷 Lab 4-5 [Implementation of client-server application for basic mathematical operations on an array]
+## 🔷 Implementation of client-server application for basic mathematical operations on an array
 
 #### Task
 Develop a client-server application to solve the task from the l.r. No. 1, by transferring an array of data from the client to the server, and then receiving the result back on the client side.
