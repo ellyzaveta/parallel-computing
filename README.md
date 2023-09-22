@@ -5,7 +5,7 @@
 ## 🔷 Lab 1 [Study of basic operations with threads of execution]
 
 #### Goal
-Consider basic operations with threads of execution, learn to use non-blocking parallelization to solve the simplest mathematical problems
+Consider basic operations with threads of execution, learn to use non-blocking parallelization to solve the simplest mathematical problems.
 
 #### Task
 Create a text string and reverse it (for example, “abc” will become “cba”).
@@ -120,5 +120,35 @@ Atomic variables are typically used for small operations, such as incrementing o
 
 Blocking primitives, such as mutexes or semaphores, are used for large operations that can take a lot of time and resources. They protect access to the resource for all other threads until the operation is complete. The use of blocking primitives provides security and prevents conflicts during the execution of critical sections of the code.
 
+<br />
 
+## 🔷 Lab 4-5 [Implementation of client-server application for basic mathematical operations on an array]
+
+#### Task
+Develop a client-server application to solve the task from the l.r. No. 1, by transferring an array of data from the client to the server, and then receiving the result back on the client side.
+Develop an application-level protocol for client-server interaction, for this, consider several steps in the interaction process:
+1. Sending data and configuration of calculations (in accordance with the tasks of the option from LR No. 1).
+2. Sending a command to start calculations.
+3. Result request with two possible response options: current status (if the result is still being calculated) and receiving the final result.
+4. Support several clients at the same time.
+
+#### Results
+
+All server/client pairs must have a specific protocol by which they communicate with each other, otherwise the data they exchange will not make sense.
+
+<br />
+
+<img src="https://drive.google.com/uc?export=view&id=1bL68a3ieKtjobmtWwy2HrFj3uei_hKSP" width="630">
+
+#### Conclusions
+
+To ensure client-server interaction, an application-level protocol was developed, which includes several steps. First, data and computation configuration are sent from the client to the server. Then a command is sent to start the calculation. There are two response options for getting the result: the current status, if the result is still being calculated, or getting the final result.
+
+<br />
+
+A separate functionality of the application is the support of several clients at the same time, which allows you to perform tasks more efficiently.
+
+<br />
+
+The client and server were implemented in different programming languages. This approach, for example, can be used to implement the server part using a language that has good support for multithreading or distributed computing, while the client part can use a lightweight language that is convenient for user interface development.
 
